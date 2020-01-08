@@ -61,6 +61,13 @@ class ArloDevice(object):
         self._do_callbacks(attr, value)
 
     @property
+    def entity_id(self):
+        if self._arlo.cfg.friendly_entity_ids:
+            return self.name.lower().replace(' ', '_')
+        else:
+            return self.device_id
+
+    @property
     def name(self):
         return self._name
 

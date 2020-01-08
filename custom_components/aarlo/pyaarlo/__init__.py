@@ -188,6 +188,25 @@ class PyArlo(object):
         self._be.logout()
 
     @property
+    def entity_id(self):
+        if self.cfg.friendly_entity_ids:
+            return self.name.lower().replace(' ', '_')
+        else:
+            return self.device_id
+
+    @property
+    def name(self):
+        return 'ARLO CONTROLLER'
+
+    @property
+    def device_id(self):
+        return 'ARLO'
+
+    @property
+    def model_id(self):
+        return self.name
+
+    @property
     def cfg(self):
         return self._cfg
 

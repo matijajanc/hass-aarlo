@@ -230,7 +230,7 @@ class ArloCam(Camera):
         """Initialize an Arlo camera."""
         super().__init__()
         self._name = camera.name
-        self._unique_id = self._name.lower().replace(' ', '_')
+        self._unique_id = camera.entity_id
         self._camera = camera
         self._state = None
         self._recent = False

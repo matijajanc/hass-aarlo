@@ -42,6 +42,7 @@ CONF_DEVICE_REFRESH = 'refresh_devices_every'
 CONF_HTTP_CONNECTIONS = 'http_connections'
 CONF_HTTP_MAX_SIZE = 'http_max_size'
 CONF_RECONNECT_EVERY = 'reconnect_every'
+CONF_FRIENDLY_ENTITY_IDS = 'friendly_entity_ids'
 
 SCAN_INTERVAL = timedelta(seconds=60)
 PACKET_DUMP = False
@@ -60,6 +61,7 @@ DEVICE_REFRESH = 0
 HTTP_CONNECTIONS = 5
 HTTP_MAX_SIZE = 10
 RECONNECT_EVERY = 0
+FRIENDLY_ENTITY_IDS = True
 DEFAULT_HOST = 'https://my.arlo.com'
 
 CONFIG_SCHEMA = vol.Schema({
@@ -84,6 +86,7 @@ CONFIG_SCHEMA = vol.Schema({
         vol.Optional(CONF_HTTP_CONNECTIONS, default=HTTP_CONNECTIONS): cv.positive_int,
         vol.Optional(CONF_HTTP_MAX_SIZE, default=HTTP_MAX_SIZE): cv.positive_int,
         vol.Optional(CONF_RECONNECT_EVERY, default=RECONNECT_EVERY): cv.positive_int,
+        vol.Optional(CONF_FRIENDLY_ENTITY_IDS, default=FRIENDLY_ENTITY_IDS): cv.boolean,
     }),
 }, extra=vol.ALLOW_EXTRA)
 
@@ -112,6 +115,7 @@ def setup(hass, config):
     http_connections = conf.get(CONF_HTTP_CONNECTIONS)
     http_max_size = conf.get(CONF_HTTP_MAX_SIZE)
     reconnect_every = conf.get(CONF_RECONNECT_EVERY)
+    friendly_entity_ids = conf.get(CONF_FRIENDLY_ENTITY_IDS)
 
     # Fix up config
     if conf_dir == '':
@@ -128,7 +132,8 @@ def setup(hass, config):
                       no_media_upload=no_media_up,
                       user_agent=user_agent, mode_api=mode_api,
                       refresh_devices_every=device_refresh, reconnect_every=reconnect_every,
-                      http_connections=http_connections, http_max_size=http_max_size)
+                      http_connections=http_connections, http_max_size=http_max_size,
+                      friendly_entity_ids=friendly_entity_ids)
         if not arlo.is_connected:
             return False
 

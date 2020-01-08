@@ -35,7 +35,7 @@ class ArloLight(Light):
     def __init__(self, light):
         """Initialize an Arlo light."""
         self._name = light.name
-        self._unique_id = self._name.lower().replace(' ', '_')
+        self._unique_id = light.entity_id
         self._state = "off"
         self._light = light
         _LOGGER.info('ArloLight: %s created', self._name)

@@ -99,3 +99,8 @@ class ArloCfg(object):
     @property
     def reconnect_every(self, default=0):
         return self._kw.get('reconnect_every', default) * 60
+
+    @property
+    def friendly_entity_ids(self, default=True):
+        return self._kw.get('friendly_entity_ids', default)
+
