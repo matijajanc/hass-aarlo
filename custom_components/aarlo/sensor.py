@@ -81,7 +81,7 @@ class ArloSensor(Entity):
             self._device = arlo
         else:
             self._name = '{0} {1}'.format(sensor_details[0], device.name)
-            self._unique_id = '{0}_{1}'.format(sensor_type, device.entity_id).lower()
+            self._unique_id = '{0}_{1}'.format(sensor_details[0], device.entity_id).lower().replace(" ", "_")
             self._device = device
 
         self._sensor_type = sensor_type
@@ -137,13 +137,12 @@ class ArloSensor(Entity):
     @property
     def device_state_attributes(self):
         """Return the device state attributes."""
-        attrs = {}
+        attrs = {
+            ATTR_ATTRIBUTION: CONF_ATTRIBUTION,
+            'brand': DEFAULT_BRAND,
+            'friendly_name': self._name,
 
-        attrs[ATTR_ATTRIBUTION] = CONF_ATTRIBUTION
-        attrs['brand'] = DEFAULT_BRAND
-        attrs['friendly_name'] = self._name
-
-        attrs['device_id'] = self._device.device_id
-        attrs['model'] = self._device.model_id
-
+            'device_id': self._device.device_id,
+            'model': self._device.model_id,
+        }
         return attrs

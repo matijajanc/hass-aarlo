@@ -103,4 +103,3 @@ class ArloCfg(object):
     @property
     def friendly_entity_ids(self, default=True):
         return self._kw.get('friendly_entity_ids', default)
-

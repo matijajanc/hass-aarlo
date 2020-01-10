@@ -1,9 +1,7 @@
 """Provide functionality to interact with vlc devices on the network."""
 import logging
 
-import voluptuous as vol
-
-from homeassistant.components.media_player import DEVICE_CLASS_SPEAKER, PLATFORM_SCHEMA, MediaPlayerDevice
+from homeassistant.components.media_player import DEVICE_CLASS_SPEAKER, MediaPlayerDevice
 from homeassistant.components.media_player.const import (
     MEDIA_TYPE_MUSIC,
     SUPPORT_PAUSE,
@@ -15,28 +13,27 @@ from homeassistant.components.media_player.const import (
     SUPPORT_VOLUME_MUTE,
     SUPPORT_VOLUME_SET,
 )
-from homeassistant.core import callback
 from homeassistant.const import (
     ATTR_ATTRIBUTION,
     STATE_IDLE,
     STATE_PAUSED,
     STATE_PLAYING
 )
-import homeassistant.helpers.config_validation as cv
+from homeassistant.core import callback
 from . import CONF_ATTRIBUTION, DATA_ARLO, DEFAULT_BRAND
 
 _LOGGER = logging.getLogger(__name__)
 
 SUPPORT_ARLO = (
-    SUPPORT_PAUSE
-    | SUPPORT_PLAY_MEDIA
-    | SUPPORT_PLAY
-    | SUPPORT_PREVIOUS_TRACK
-    | SUPPORT_NEXT_TRACK
-    | SUPPORT_SHUFFLE_SET
-    | SUPPORT_VOLUME_MUTE
-    | SUPPORT_VOLUME_SET
-    
+        SUPPORT_PAUSE
+        | SUPPORT_PLAY_MEDIA
+        | SUPPORT_PLAY
+        | SUPPORT_PREVIOUS_TRACK
+        | SUPPORT_NEXT_TRACK
+        | SUPPORT_SHUFFLE_SET
+        | SUPPORT_VOLUME_MUTE
+        | SUPPORT_VOLUME_SET
+
 )
 
 """ Unsupported features:
@@ -52,7 +49,7 @@ SUPPORT_ARLO = (
 """
 
 
-async def async_setup_platform(hass, config, async_add_entities, _discovery_info=None):
+async def async_setup_platform(hass, _config, async_add_entities, _discovery_info=None):
     """Set up an Arlo media player."""
     arlo = hass.data.get(DATA_ARLO)
     if not arlo:
@@ -65,6 +62,7 @@ async def async_setup_platform(hass, config, async_add_entities, _discovery_info
             players.append(ArloMediaPlayerDevice(name, camera))
 
     async_add_entities(players, True)
+
 
 class ArloMediaPlayerDevice(MediaPlayerDevice):
     """Representation of an arlo media player."""
@@ -174,12 +172,11 @@ class ArloMediaPlayerDevice(MediaPlayerDevice):
     @property
     def device_state_attributes(self):
         """Return the device state attributes."""
-        attrs = {}
-
-        attrs[ATTR_ATTRIBUTION] = CONF_ATTRIBUTION
-        attrs['brand'] = DEFAULT_BRAND
-        attrs['friendly_name'] = self._name
-
+        attrs = {
+            ATTR_ATTRIBUTION: CONF_ATTRIBUTION,
+            'brand': DEFAULT_BRAND,
+            'friendly_name': self._name,
+        }
         return attrs
 
     @property

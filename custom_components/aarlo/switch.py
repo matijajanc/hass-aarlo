@@ -11,8 +11,8 @@ import voluptuous as vol
 
 import homeassistant.helpers.config_validation as cv
 import homeassistant.util.dt as dt_util
-from homeassistant.const import (ATTR_ATTRIBUTION)
 from homeassistant.components.switch import SwitchDevice
+from homeassistant.const import (ATTR_ATTRIBUTION)
 from homeassistant.core import callback
 from homeassistant.helpers.config_validation import (PLATFORM_SCHEMA)
 from homeassistant.helpers.event import track_point_in_time
@@ -191,7 +191,8 @@ class AarloSirenSwitch(AarloSirenBaseSwitch):
 
     def __init__(self, config, device):
         """Initialize the Aarlo siren switch device."""
-        super().__init__("{0} Siren".format(device.name), "siren_{}".format(device.entity_id), "alarm-bell", config.get(CONF_SIREN_DURATION),
+        super().__init__("{0} Siren".format(device.name), "siren_{}".format(device.entity_id), "alarm-bell",
+                         config.get(CONF_SIREN_DURATION),
                          config.get(CONF_SIREN_ALLOW_OFF))
         self._device = device
         self._volume = config.get(CONF_SIREN_VOLUME)
@@ -230,7 +231,8 @@ class AarloAllSirensSwitch(AarloSirenBaseSwitch):
 
     def __init__(self, config, arlo, devices):
         """Initialize the Aarlo siren switch device."""
-        super().__init__("All Sirens", "all_sirens", "alarm-light", config.get(CONF_SIREN_DURATION), config.get(CONF_SIREN_ALLOW_OFF))
+        super().__init__("All Sirens", "all_sirens", "alarm-light", config.get(CONF_SIREN_DURATION),
+                         config.get(CONF_SIREN_ALLOW_OFF))
         self._volume = config.get(CONF_SIREN_VOLUME)
         self._devices = devices
         self._device = arlo

@@ -194,8 +194,11 @@ class ArloBaseStation(AlarmControlPanel):
         """Return the list of supported features."""
         """Make this non-dynamic later..."""
         try:
-            c = __import__("homeassistant.components.alarm_control_panel.const",fromlist=['SUPPORT_ALARM_ARM_HOME', 'SUPPORT_ALARM_ARM_AWAY', 'SUPPORT_ALARM_ARM_NIGHT', 'SUPPORT_ALARM_TRIGGER'])
-            _LOGGER.debug('supported: ' + str(c.SUPPORT_ALARM_ARM_HOME | c.SUPPORT_ALARM_ARM_AWAY | c.SUPPORT_ALARM_ARM_NIGHT | c.SUPPORT_ALARM_TRIGGER))
+            c = __import__("homeassistant.components.alarm_control_panel.const",
+                           fromlist=['SUPPORT_ALARM_ARM_HOME', 'SUPPORT_ALARM_ARM_AWAY', 'SUPPORT_ALARM_ARM_NIGHT',
+                                     'SUPPORT_ALARM_TRIGGER'])
+            _LOGGER.debug('supported: ' + str(
+                c.SUPPORT_ALARM_ARM_HOME | c.SUPPORT_ALARM_ARM_AWAY | c.SUPPORT_ALARM_ARM_NIGHT | c.SUPPORT_ALARM_TRIGGER))
             return c.SUPPORT_ALARM_ARM_HOME | c.SUPPORT_ALARM_ARM_AWAY | c.SUPPORT_ALARM_ARM_NIGHT | c.SUPPORT_ALARM_TRIGGER
         except ModuleNotFoundError:
             _LOGGER.debug('not supported')
@@ -265,17 +268,16 @@ class ArloBaseStation(AlarmControlPanel):
     @property
     def device_state_attributes(self):
         """Return the state attributes."""
-        attrs = {}
-
-        attrs[ATTR_ATTRIBUTION] = CONF_ATTRIBUTION
-        attrs[ATTR_TIME_ZONE] = self._base.timezone
-        attrs['brand'] = DEFAULT_BRAND
-        attrs['device_id'] = self._base.device_id
-        attrs['model_id'] = self._base.model_id
-        attrs['friendly_name'] = self._name
-        attrs['on_schedule'] = self._base.on_schedule
-        attrs['siren'] = self._base.has_capability('siren')
-
+        attrs = {
+            ATTR_ATTRIBUTION: CONF_ATTRIBUTION,
+            ATTR_TIME_ZONE: self._base.timezone,
+            'brand': DEFAULT_BRAND,
+            'device_id': self._base.device_id,
+            'model_id': self._base.model_id,
+            'friendly_name': self._name,
+            'on_schedule': self._base.on_schedule,
+            'siren': self._base.has_capability('siren'),
+        }
         return attrs
 
     def _get_state_from_ha(self, mode):
@@ -330,6 +332,7 @@ class ArloBaseStation(AlarmControlPanel):
         if not check:
             _LOGGER.warning("Wrong code entered for %s", state)
         return check
+
 
 def _get_base_from_entity_id(hass, entity_id):
     component = hass.data.get(DOMAIN)
