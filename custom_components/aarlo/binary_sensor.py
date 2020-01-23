@@ -98,6 +98,7 @@ class ArloBinarySensor(BinarySensorDevice):
             ATTR_ATTRIBUTION: CONF_ATTRIBUTION,
             'brand': DEFAULT_BRAND,
             'friendly_name': self._name,
+            'camera_name': self._device.name,
         }
         return attrs
 

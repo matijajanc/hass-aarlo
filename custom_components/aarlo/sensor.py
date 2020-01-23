@@ -141,8 +141,19 @@ class ArloSensor(Entity):
             ATTR_ATTRIBUTION: CONF_ATTRIBUTION,
             'brand': DEFAULT_BRAND,
             'friendly_name': self._name,
+            'camera_name': self._device.name,
 
             'device_id': self._device.device_id,
             'model': self._device.model_id,
         }
+
+        if self._sensor_type == 'last_capture':
+            video = self._device.last_video
+            if video is not None:
+                attrs['object_type'] = video.object_type
+                attrs['object_region'] = video.object_region
+                attrs['thumbnail_url'] = video.thumbnail_url
+            else:
+                attrs['object_type'] = None
+
         return attrs
