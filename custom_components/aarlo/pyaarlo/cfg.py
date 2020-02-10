@@ -101,5 +101,9 @@ class ArloCfg(object):
         return self._kw.get('reconnect_every', default) * 60
 
     @property
+    def verbose(self, default=False):
+        return self._kw.get('verbose_debug', default)
+
+    @property
     def friendly_entity_ids(self, default=True):
         return self._kw.get('friendly_entity_ids', default)
