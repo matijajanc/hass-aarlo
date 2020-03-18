@@ -105,5 +105,9 @@ class ArloCfg(object):
         return self._kw.get('verbose_debug', default)
 
     @property
+    def hide_deprecated_services(self, default=False):
+        return self._kw.get('hide_deprecated_services', default)
+
+    @property
     def friendly_entity_ids(self, default=True):
         return self._kw.get('friendly_entity_ids', default)
