@@ -1173,3 +1173,25 @@ class ArloCamera(ArloChildDevice):
             if self.model_id.startswith('FB1001'):
                 return True
         return super().has_capability(cap)
+
+    @property
+    def _camera_resource_id(self):
+        return "cameras/{}".format(self.device_id)
+
+    def set_camera_brightness(self, brightness=0):
+        """Set camera brightness level.
+
+        :param brightness:
+        -2 = Very Low
+        -1 = Low
+        0 = Default
+        1 = High
+        2 = Very High
+        """
+        body = {
+            'action': 'set',
+            'resource': self._camera_resource_id,
+            'publishResponse': True,
+            'properties': {'brightness': int(brightness)}
+        }
+        self._arlo.be.notify(base=self, body=body)

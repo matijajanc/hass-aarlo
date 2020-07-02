@@ -47,7 +47,12 @@ from .pyaarlo.constant import (ACTIVITY_STATE_KEY,
                                MEDIA_UPLOAD_KEYS,
                                PRIVACY_KEY,
                                RECENT_ACTIVITY_KEY,
-                               SIREN_STATE_KEY)
+                               SIREN_STATE_KEY,
+                               CAMERA_BRIGHTNESS_VERY_LOW,
+                               CAMERA_BRIGHTNESS_LOW,
+                               CAMERA_BRIGHTNESS_DEFAULT,
+                               CAMERA_BRIGHTNESS_HIGH,
+                               CAMERA_BRIGHTNESS_VERY_HIGH)
 
 _LOGGER = logging.getLogger(__name__)
 
